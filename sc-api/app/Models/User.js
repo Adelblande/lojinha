@@ -20,7 +20,12 @@ class User extends Model {
       }
     })
   }
-
+  /**
+   * Metodo para esconder a senha no retorno 
+   */
+  static get hidden() {
+    return ['password']
+  }
   /**
    * trails adicionado conforme documentação adonis-acl
    */
