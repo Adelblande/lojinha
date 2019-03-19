@@ -21,14 +21,12 @@ class ProductSchema extends Schema {
           .foreign('image_id')
           .references('id')
           .inTable('images')
-          .onUpdate('cascade')
           .onDelete('cascade')
           
         table
           .foreign('product_id')
           .references('id')
           .inTable('products')
-          .onUpdate('cascade')
           .onDelete('cascade')
 
       })

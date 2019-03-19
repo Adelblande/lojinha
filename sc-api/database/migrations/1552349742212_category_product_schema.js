@@ -15,14 +15,12 @@ class CategoryProductSchema extends Schema {
         .foreign('product_id')
         .references('id')
         .inTable('products')
-        .onUpdate('cascade')
         .onDelete('cascade')
         
       table
         .foreign('category_id')
         .references('id')
         .inTable('categories')
-        .onUpdate('cascade')
         .onDelete('cascade')
 
     })
