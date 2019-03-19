@@ -23,7 +23,7 @@ class CategoriesAndProductSeeder {
 
         await Promise.all(
           products.map(async product => {
-            await product.categories().attach([product.id])
+            await product.categories().attach([category.id])
           })
         )
       })
