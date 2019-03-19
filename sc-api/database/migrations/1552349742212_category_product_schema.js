@@ -9,8 +9,7 @@ class CategoryProductSchema extends Schema {
       table.increments()
       table.integer('product_id').unsigned()
       table.integer('category_id').unsigned()
-      table.timestamps()
-
+      
       table
         .foreign('product_id')
         .references('id')
