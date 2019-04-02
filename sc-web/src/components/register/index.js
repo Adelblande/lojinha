@@ -18,15 +18,17 @@ export default function Register() {
         const { name, surname, username, email, password } = user;
         if(!name || !surname || !username || !email || !password ){
             setErro('Preencha os dados corretamente')
-        }    
-        try {
-            await api.post('/v1/auth/register', { name, surname, username, email, password })
-            this.props.history.push('/')
-            // setUser(({name: '', surname: '', username: '', email: '', password: ''}))
-        } catch (error) {
-            console.log(error)
-            setErro('Não foi possível cadastrar usuário')
-        }
+        } else {
+            try {
+                await api.post('/v1/auth/register', { name, surname, username, email, password })
+                this.props.history.push('/')
+                // setUser(({name: '', surname: '', username: '', email: '', password: ''}))
+            } catch (error) {
+                console.log(error)
+                setErro('Não foi possível cadastrar usuário')
+            }
+
+        }  
     }
     
     return (
