@@ -10,21 +10,21 @@ class AuthController {
         const userRole = await Role.findBy('slug','client')
         await user.roles().attach([userRole.id])
         
-        return response.status(201).send({ data: user })
+        return response.status(201).send({ user })
     }
     /*Fazer Login com um usuário*/
     async login({ request, response, auth }) {
         const { email, password } = request.all()
         const user = await auth.withRefreshToken().attempt(email, password)
 
-        return response.send({ data: user })
+        return response.send({ user })
     }
     /*Atualizar Token*/
     async refresh({ request, response, auth }) {
         const { refresh_token } = request.all()
         const user = await auth.newRefreshToken().generateForRefreshToken(refresh_token)
 
-        return response.send({ data: user })
+        return response.send({ user })
     }
     /*Deslogar um usuário*/
     async logout({ request, response, auth }) {

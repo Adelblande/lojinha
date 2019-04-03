@@ -1,14 +1,20 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 import { Container, Form} from './style';
 import  api  from '../../services/api';
 
-export default function Login() {
+function Login(props) {
     
     const [user, setUser] = useState({email: '', password: ''});
     const [erro, setErro] = useState('')
     
+    const updateField = e => {
+        setUser({
+            ...user,
+            [e.target.name]: e.target.value
+        });
+    };
     async function handleSignin() {
         const { email, password } = user;
 
@@ -18,7 +24,8 @@ export default function Login() {
             setErro('')
             try {
                 const { data } = await api.post('/v1/auth/login', { email, password })
-                await localStorage.setItem('@somoscorujinhas', data.token)
+                await localStorage.setItem('@somoscorujinhas', data.user.token)
+                props.history.push('/vitrine')
                 console.log(data)
                 
             } catch (error) {
@@ -28,12 +35,7 @@ export default function Login() {
 
         
     }
-    const updateField = e => {
-        setUser({
-            ...user,
-            [e.target.name]: e.target.value
-        });
-    };
+    
     return (
         <Container>
             <Form>
@@ -54,8 +56,10 @@ export default function Login() {
                 />
                 <button type="button" onClick={() => handleSignin()}>Entrar</button>
                 <hr />
-                <Link to="/register">Cadastre-se</Link>
+                <Link to="/register">Cadastro</Link>
             </Form>
         </Container>
     )
 }
+
+export default withRouter(Login)

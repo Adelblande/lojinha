@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
+import { Link, withRouter } from 'react-router-dom';
 
 import { Container, Form} from './style';
 import  api  from '../../services/api';
 
-export default function Register() {
+function Register(props) {
     
     const [user, setUser] = useState({name: '', surname: '', username: '', email: '', password: ''});
     const [erro, setErro] = useState('');
@@ -21,8 +22,8 @@ export default function Register() {
         } else {
             try {
                 await api.post('/v1/auth/register', { name, surname, username, email, password })
-                this.props.history.push('/')
-                // setUser(({name: '', surname: '', username: '', email: '', password: ''}))
+                props.history.push('/')
+            
             } catch (error) {
                 console.log(error)
                 setErro('Não foi possível cadastrar usuário')
@@ -71,7 +72,11 @@ export default function Register() {
                     onChange={ updateField }
                 />
                 <button type="button" onClick={() => handleRegister()}>Registrar</button>
+                <hr />
+                <Link to="/">Login</Link>
             </Form>
         </Container>
     )
 }
+
+export default withRouter(Register)
